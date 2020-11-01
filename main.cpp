@@ -14,7 +14,7 @@
 //
 // https://github.com/angeluriot/Disease_propagation
 //
-// Language: C++ (Norme 2014)
+// Language: C++ (C++14)
 // Compiler: GNU GCC
 // Graphic Library: OpenGL(3.0), SDL_2 TTF, GLSL
 // Window: SDL_2
