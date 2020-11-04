@@ -5,7 +5,6 @@
 #include <GL/glew.h>
 
 #include "../../../includes/GUT/GUT.hpp"
-#include "button/button.hpp"
 #include "entry/entry.hpp"
 #include "../map/map.hpp"
 
