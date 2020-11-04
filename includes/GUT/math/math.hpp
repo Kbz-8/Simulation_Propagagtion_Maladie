@@ -17,7 +17,7 @@
 
 #include <iostream>
 
-class math
+class Math
 {
     public:
         static int randint(int a, int b);  // gives a random integer

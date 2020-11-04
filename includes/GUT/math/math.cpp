@@ -14,16 +14,16 @@
 
 #include "math.hpp"
 
-int math::randint(int a, int b)
+int Math::randint(int a, int b)
 {
     return rand() % (b - a) + a;
 }
 
-bool math::rand_probability(double proba)
+bool Math::rand_probability(double proba)
 {
-	if(proba < 1)
+	if(proba <= 1)
         return ((double)rand() / (double)RAND_MAX < proba);
-	return 0;
+	return false;
 }
 
 #endif // __cplusplus

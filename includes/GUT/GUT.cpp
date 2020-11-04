@@ -14,6 +14,9 @@
 
 #ifdef __cplusplus
 
+gut::gut(): Math()
+{}
+
 void gut::debugPrint(GUTtext text)
 {
     std::cout << text << std::endl;

@@ -21,6 +21,9 @@
 #include "math/math.hpp"
 #include "Log/log.hpp"
 #include "GL/getPixelColor/getpixelcolor.hpp"
+#include "GL/shader/shader.hpp"
+#include "GL/text/text.hpp"
+#include "SDL2/input/input.hpp"
 
 #include <iostream>
 
@@ -33,9 +36,10 @@
 #define GUTuchar unsigned char
 #define GUTtext const char*
 
-class gut
+class gut : public Math
 {
     public:
+        gut();
         static void debugPrint(GUTtext text = "debug");  // test print for debugging
 };
 
