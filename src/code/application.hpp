@@ -2,15 +2,12 @@
 #define APPLICATION_HPP
 
 #include "../../includes/GUT/GUT.hpp"
-#include "input/input.hpp"
-#include "shader/shader.hpp"
 #include "map/map.hpp"
-#include "text/text.hpp"
 #include "menu/menu.hpp"
 
 #include <iostream>
 
-class Application : public Shader, public Input, public Map, public Menu // Classes héritées par la classe Application
+class Application : public Shader, public Map, public Menu // Classes héritées par la classe Application
 {
     public:
         Application(int width, int height); // Constructeur de la classe

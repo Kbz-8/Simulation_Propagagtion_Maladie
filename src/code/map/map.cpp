@@ -7,45 +7,7 @@ Map::Map(int width, int height)
 
     /* ========================================= Mise en place de la simulation ========================================= */
 
-    clearTabular();
-
-    _daysPassed = 0;
-
-    _sicks = 1;
-    _vaccinated_chance = 0.2;
-	_mortality = 0.9;
-	_contagiousness = 0.2;
-	_time_before_death = 20;
-	_time_before_cure = 40;
-
-    std::vector<Person> tempo;   // Tableau temporraire pour remplir le tableau principal
-	tempo.clear();
-
-	for(int i = 0; i < 355; i++)
-	{
-		for(int j = 0; j < 197; j++)
-			tempo.push_back(Person(_vaccinated_chance, _mortality)); // On remplis le tablau temporaire de gens
-
-		_TableauPersonnes.push_back(tempo); // On transfère les données du tableau temporaire vers le tableau principal
-		tempo.clear();
-	}
-
-	int x = 0;
-	int y = 0;
-    // Boucle pour placer aléatoirement le nombre initial de malade sur la map
-	for(int i = 0; i < _sicks; i++)
-	{
-		x = math::randint(0, _TableauPersonnes.size());
-		y = math::randint(0, _TableauPersonnes.front().size());
-
-		while(_TableauPersonnes[x][y]._type == SICK)
-		{
-			x = math::randint(0, _TableauPersonnes.size());
-            y = math::randint(0, _TableauPersonnes.front().size());
-		}
-
-		setPerson(x, y, SICK);
-	}
+    restart();
 
 	/* ========================================= Mise en place du VBO ========================================= */
 
@@ -60,6 +22,47 @@ Map::Map(int width, int height)
         _vertices.push_back(vertices[i]);   // Transfère des coordonnées des sommets du tableau temporaire vers le tableau dynamique
                                             // dont le VBO a besoin
     LoadVBO();  // Génération du VBO
+
+    std::cout << "Map initialisée" << std::endl;
+}
+
+void Map::restart()
+{
+    clearTabular();
+
+    _daysPassed = 0;
+
+    _sicks = 1;
+    _sicksNumber = _sicks;
+
+    std::vector<Person> tempo;   // Tableau temporraire pour remplir le tableau principal
+	tempo.clear();
+
+	for(int i = 0; i < (int)((_width/5) - 29); i++)
+	{
+		for(int j = 0; j < (int)((_height/5) - 11); j++)
+			tempo.push_back(Person(_vaccinated_chance, _mortality)); // On remplis le tablau temporaire de gens
+
+		_TableauPersonnes.push_back(tempo); // On transfère les données du tableau temporaire vers le tableau principal
+		tempo.clear();
+	}
+
+	int x = 0;
+	int y = 0;
+    // Boucle pour placer aléatoirement le nombre initial de malade sur la map
+	for(int i = 0; i < _sicks; i++)
+	{
+		x = Math::randint(0, _TableauPersonnes.size());
+		y = Math::randint(0, _TableauPersonnes.front().size());
+
+		while(_TableauPersonnes[x][y]._type == SICK)
+		{
+			x = Math::randint(0, _TableauPersonnes.size());
+            y = Math::randint(0, _TableauPersonnes.front().size());
+		}
+
+		setPerson(x, y, SICK);
+	}
 }
 
 void Map::LoadVBO()
@@ -115,6 +118,8 @@ void Map::renderPerson(int x, int y)
     glDrawArrays(GL_QUADS, 0, 4); // Dessine les informations contenues dans le VBO
 
     glPopMatrix();      // Remet l'ancienne matrice pour éviter que les prochains carrés soient affectés par la modification de matrice
+
+    _sicksNumber = 0;
 }
 
 void Map::renderPopulation()
@@ -147,7 +152,8 @@ void Map::updateMap()
 				updateSick(i, j);
 		}
 	}
-	_daysPassed++;
+	if(_sicksNumber != 0)
+        _daysPassed++;
 
 	updateNewSick();
 }
@@ -156,28 +162,28 @@ void Map::updateHealthy(int x, int y)
 {
     bool is_sick = false;
 	if(getPerson(x - 1, y - 1)._type == SICK && !getPerson(x - 1, y - 1)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(getPerson(x - 1, y)._type == SICK && !getPerson(x - 1, y)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(getPerson(x - 1, y + 1)._type == SICK && !getPerson(x - 1, y + 1)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(getPerson(x, y - 1)._type == SICK && !getPerson(x, y - 1)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(getPerson(x, y + 1)._type == SICK && !getPerson(x, y + 1)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(getPerson(x + 1, y - 1)._type == SICK && !getPerson(x + 1, y - 1)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(getPerson(x + 1, y)._type == SICK && !getPerson(x + 1, y)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(getPerson(x + 1, y + 1)._type == SICK && !getPerson(x + 1, y + 1)._firstDaySick)
-        is_sick = math::rand_probability(_contagiousness);
+        is_sick = Math::rand_probability(_contagiousness);
 
 	if(is_sick)
 	{
@@ -209,6 +215,7 @@ void Map::updateSick(int x, int y)
 		if(_TableauPersonnes[x][y]._daysSick == _time_before_death)
 			setPerson(x, y, DEAD);
 	}
+	_sicksNumber++;
 }
 
 void Map::clearTabular()

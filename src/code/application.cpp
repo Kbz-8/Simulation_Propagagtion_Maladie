@@ -1,13 +1,13 @@
 #include "application.hpp"
 
-Application::Application(int width, int height) : Shader("src/shaders/main.vert", "src/shaders/main.frag"), Input(), Map(width, height), Menu(width, height) // Initialisations des classes héritées
+Application::Application(int width, int height) : Shader("src/shaders/main.vert", "src/shaders/main.frag"), Map(width, height), Menu(width, height) // Initialisations des classes héritées
 {
     _width = width;
     _height = height;
 
-    text = new Text("src/code/text/font/font_1.ttf", 15, WHITE); // Initialisation des textes
+    text = new Text("includes/GUT/GL/text/font/font_1.ttf", 15, WHITE); // Initialisation des textes
     text->Init(" "); // Au début il n'affiche rien tant qu'on a pas les informations à lui transmettre
-    days = new Text("src/code/text/font/font_1.ttf", 15, WHITE);
+    days = new Text("includes/GUT/GL/text/font/font_1.ttf", 15, WHITE);
     days->Init("0");
 }
 
@@ -15,7 +15,13 @@ void Application::updates()
 {
     update(); // Update des inputs
     if(!_go)
+    {
+        activateTextInput(true);
         updateMenu(*this);
+    }
+
+    if(getTouche(SDL_SCANCODE_ESCAPE))
+        _go = false;
 }
 
 void Application::render()

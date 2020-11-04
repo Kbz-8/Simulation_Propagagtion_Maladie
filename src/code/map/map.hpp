@@ -11,6 +11,8 @@ class Map
     public:
         Map(int width, int height); // Constructeur de la classe
 
+        void restart();
+
         void clearTabular(); // Fonction pour nettoyer le tableau principal
 
         Person getPerson(int x, int y); // Fonction pour récupérer les caractéristiques d'une personne
@@ -31,6 +33,7 @@ class Map
         int _time_before_cure;
 
         int _daysPassed;
+        int _sicksNumber;
 
     private:
         int _width;
