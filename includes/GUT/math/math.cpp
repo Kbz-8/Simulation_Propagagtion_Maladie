@@ -7,23 +7,29 @@
 //
 // AUTHOR: DAVID Malo
 // CREATED: 31/10/2020
-// UPDATED: 31/10/2020
+// UPDATED: 07/11/2020
 /*=============================================================*/
 
 #ifdef __cplusplus
 
 #include "math.hpp"
 
-int Math::randint(int a, int b)
+namespace gut
 {
-    return rand() % (b - a) + a;
-}
+    namespace math
+    {
+        int randint(int a, int b)
+        {
+            return rand() % (b - a) + a;
+        }
 
-bool Math::rand_probability(double proba)
-{
-	if(proba <= 1)
-        return ((double)rand() / (double)RAND_MAX < proba);
-	return false;
+        bool rand_probability(double proba)
+        {
+            if(proba < 1)       return ((double)rand() / (double)RAND_MAX < proba);
+            else if(proba == 1) return true;
+            return false;
+        }
+    }
 }
 
 #endif // __cplusplus

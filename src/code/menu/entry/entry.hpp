@@ -13,15 +13,14 @@ enum EntryTYPE
     INTEGER
 };
 
-class Entry : public Text
+class Entry : public gut::gl::Text
 {
     public:
         Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, GUTtext path, GUTuint sizeFont = 30);
+        Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, TTF_Font *font);
 
-        void updateEntry(int mouse_posx, int mouse_posy, bool isButtonDown);
+        void updateEntry(gut::sdl::Input &input);
         void renderEntry();
-
-        void updateTexte(Input &input);
         void renderTexte();
 
         ~Entry();
@@ -37,11 +36,9 @@ class Entry : public Text
         int _pos_h;
 
     private:
-        int _hundreds = 0;
-        int _tens = 0;
-        int _units = 0;
-        int _tenths = 0;
-        int _hundredths = 0;
+        void updateTexte(gut::sdl::Input &input);
+
+        int _units[5] = {0, 0, 0, 0, 0};
 
         char _whichSizeOn = 0;
 
@@ -51,6 +48,10 @@ class Entry : public Text
         bool _isErasing = false;
 
         enum EntryTYPE _type;
+
+        int _timer = 0;
+        bool _canChangeLEFT = false;
+        bool _canChangeRIGHT = false;
 };
 
 #endif // ENTRY_HPP

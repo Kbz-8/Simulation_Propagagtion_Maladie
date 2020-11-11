@@ -7,7 +7,7 @@
 //
 // AUTHOR: DAVID Malo
 // CREATED: 11/09/2020
-// UPDATED: 31/10/2020
+// UPDATED: 07/11/2020
 /*=============================================================*/
 
 #ifndef __GUT_HPP__
@@ -23,7 +23,9 @@
 #include "GL/getPixelColor/getpixelcolor.hpp"
 #include "GL/shader/shader.hpp"
 #include "GL/text/text.hpp"
+#include "GL/button/button.hpp"
 #include "SDL2/input/input.hpp"
+#include "SDL2/messagebox/messagebox.hpp"
 
 #include <iostream>
 
@@ -36,12 +38,10 @@
 #define GUTuchar unsigned char
 #define GUTtext const char*
 
-class gut : public Math
+namespace gut
 {
-    public:
-        gut();
-        static void debugPrint(GUTtext text = "debug");  // test print for debugging
-};
+    void debugPrint(GUTtext text = "debug");
+}
 
 #endif // __cplusplus
 #endif // __GUT_HPP__

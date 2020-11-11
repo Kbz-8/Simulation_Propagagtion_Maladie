@@ -3,54 +3,43 @@
 // GUT is a global extension for C++. It simplifies the development of 3D programs (especially with OpenGL).
 // It can also be used in simple programs.
 //
-// log.hpp
-//
-// Class for Logs
+// messagebox.hpp
 //
 // AUTHOR: DAVID Malo
-// CREATED: 04/09/2020
-// UPDATED: 07/11/2020
+// CREATED: 08/11/2020
+// UPDATED: 08/11/2020
 /*=============================================================*/
 
-#ifndef LOG_HPP
-#define LOG_HPP
+#ifndef MESSAGEBOX_HPP
+#define MESSAGEBOX_HPP
 
 #ifdef __cplusplus
 
+#include <SDL2/SDL.h>
 #include <iostream>
-#include <fstream>
-#include <ctime>
+#include <cstdlib>
 #include <string>
 
-enum LogType
-{
-    MESSAGE,
-    WARNING,
-    ERROR,
-    FATAL_ERROR,
-    DONT_SAVE
-};
+#include "../../Log/log.hpp"
 
 namespace gut
 {
-
-    class Log
+namespace sdl
+{
+    class MessageBox
     {
         public:
-            Log();
+            MessageBox();
 
-            static void report(enum LogType type, std::string message, std::string path);
+            static void reportMessage(enum LogType type, std::string message, std::string logReport);
 
-            ~Log();
+            ~MessageBox();
 
         private:
-            static std::string getTime(enum LogType type, std::string path);
     };
-
 }
-
-
+}
 
 #endif // __cplusplus
 
-#endif // LOG_HPP
+#endif // MESSAGEBOX_HPP

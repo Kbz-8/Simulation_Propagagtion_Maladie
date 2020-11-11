@@ -7,19 +7,21 @@
 //
 // AUTHOR: DAVID Malo
 // CREATED: 11/09/2020
-// UPDATED: 31/10/2020
+// UPDATED: 07/11/2020
 /*=============================================================*/
 
 #include "GUT.hpp"
 
 #ifdef __cplusplus
 
-gut::gut(): Math()
-{}
-
-void gut::debugPrint(GUTtext text)
+namespace gut
 {
-    std::cout << text << std::endl;
+
+    void debugPrint(GUTtext text)
+    {
+        std::cout << text << std::endl;
+    }
+
 }
 
 #endif //__cplusplus

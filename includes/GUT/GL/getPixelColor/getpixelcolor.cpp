@@ -8,18 +8,24 @@
 //
 // AUTHOR: DAVID Malo
 // CREATED: 11/09/2020
-// UPDATED: 12/09/2020
+// UPDATED: 07/11/2020
 /*=============================================================*/
 
 #ifdef __cplusplus  // only available for C++
 
 #include "getpixelcolor.hpp"
 
-Color getPixelColor(GLint x, GLint y)
+namespace gut
 {
-    Color color;
-    glReadPixels(x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &color);
-    return color;
+namespace gl
+{
+    Color getPixelColor(GLint x, GLint y)
+    {
+        Color color;
+        glReadPixels(x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &color);
+        return color;
+    }
+}
 }
 
 #endif // __cplusplus

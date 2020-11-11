@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-class Application : public Shader, public Map, public Menu // Classes héritées par la classe Application
+class Application
 {
     public:
         Application(int width, int height); // Constructeur de la classe
@@ -17,12 +17,19 @@ class Application : public Shader, public Map, public Menu // Classes héritées
 
         ~Application(); // Destructeur de la classe
 
-        Text *text; // Textes
-        Text *days; // Texte jours
+        gut::gl::Text *text; // Textes
+        gut::gl::Text *infos; // Texte informatif
+        gut::gl::Text *STATIC; // Texte static
+
+        Menu* menu;
+        gut::gl::Shader* MAIN;
+        Map* MAP;
 
     private:
         int _width; // Dimensions de la fenêtre récupérées dans le constructeur
         int _height;
+
+        bool _pause;
 };
 
 #endif // APPLICATION_HPP

@@ -2,13 +2,13 @@
 // Maths en JEAN
 // Lycée Albert Claveille
 //
-// Simulation de la propagation d'un virus dans une
+// Simulation de la propagation d'une maladie dans une
 // population donnée, selon plusieurs paramètres
 // Cette simulation est grandement inspirée de celle-ci:
 //
 // https://github.com/angeluriot/Disease_propagation
 //
-// Simulation of the propagation of a virus in a
+// Simulation of the propagation of a disease in a
 // given population, according to several parameters
 // This simulation is largely inspired by this one:
 //
@@ -22,7 +22,7 @@
 //
 // AUTHOR: DAVID Malo
 // CREATED: 28/10/2020
-// UPDATED: 31/10/2020
+// UPDATED: 10/11/2020
 /*==========================================================================*/
 
 /*====================== Includes ======================*/
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
     if(SDL_Init(SDL_INIT_VIDEO) != 0) // Initialisation de la SDL
     {
-        std::cout << "Impossible d'initialiser SDL_INIT_VIDEO" << SDL_GetError() << std::endl;
+        gut::sdl::MessageBox::reportMessage(ERROR, "Impossible d'initialiser SDL_INIT_VIDEO", SDL_GetError());
         return -1;
     }
 
@@ -65,16 +65,24 @@ int main(int argc, char *argv[])
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     if(SDL_GetDisplayUsableBounds(0, &rect) != 0) // Récupération de la zone utilisable par la fenêtre
-        std::cout << "Impossible de récupérer les dimensions de l'écran (Display Bounds)" << SDL_GetError() << std::endl; // Message en cas d'erreur
+        gut::sdl::MessageBox::reportMessage(ERROR, "Impossible de récupérer les dimensions de l'écran (Display Bounds)", SDL_GetError());
 
     screen = SDL_CreateWindow("Simulation", 0, 0, rect.w, rect.h, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN); // Création de la fenêtre
 
     if(!screen)     // Mesure de sécurité en cas d'erreur lors de la création de la fenêtre
     {
         SDL_Quit();
-        std::cout <<  "Impossible de créer la fenêtre" << SDL_GetError() << std::endl;
+        gut::sdl::MessageBox::reportMessage(ERROR, "Impossible de créer la fenêtre", SDL_GetError());
         return -1;
     }
+
+    #if defined(_WIN32) || defined(_WIN64)
+        int topBorder;
+        SDL_GetWindowBordersSize(screen, &topBorder, NULL, NULL, NULL);
+        rect.h -= topBorder;
+        SDL_SetWindowSize(screen, rect.w, rect.h);
+        SDL_SetWindowPosition(screen, 0, topBorder);
+    #endif // _WIN32
 
     context = SDL_GL_CreateContext(screen); // Création du contexte OpenGL
 
@@ -82,7 +90,7 @@ int main(int argc, char *argv[])
     {
         SDL_DestroyWindow(screen);
         SDL_Quit();
-        std::cout << "Erreur lors de la création du contexte OpenGL" << SDL_GetError() << std::endl;
+        gut::sdl::MessageBox::reportMessage(ERROR, "Erreur lors de la création du contexte OpenGL", SDL_GetError());
         return -1;
     }
 
@@ -92,16 +100,16 @@ int main(int argc, char *argv[])
     {
         SDL_DestroyWindow(screen);
         SDL_Quit();
-        std::cout << "Erreur lors de l'initialisation de GLEW: " << std::string(reinterpret_cast<GUTtext>(glewGetErrorString(GLEWerr))) << std::endl;
+        gut::sdl::MessageBox::reportMessage(ERROR, "Erreur lors de l'initialisation de GLEW:", std::string(reinterpret_cast<GUTtext>(glewGetErrorString(GLEWerr))));
         return -1;
     }
 
     Application application(rect.w, rect.h); // Création d'un objet de la classe Application qui est la classe principale de la simulation
 
-    std::string text_var; // Création du contenu du texte pour les FPS/UPS avec une variable String
-    std::string days_var;
+    std::string text_var; // Texte pour les FPS/UPS avec une variable String
+    std::string informations;
 
-    while(!application.fin())  // Boucle principale
+    while(!application.menu->_end)  // Boucle principale
     {
         SDL_GL_SetSwapInterval(0);  //Pour laisser les FPS aller au delà du taux de rafraichissement de l'ecran
 
@@ -109,12 +117,17 @@ int main(int argc, char *argv[])
         {
             text_var.clear();
 
-            text_var.append("FPS: ");
+            if(glIsBuffer(application.MAP->_vboID))
+                text_var.append("VBO: ON");
+            else
+                text_var.append("VBO: OFF");
+            text_var.append("\nFPS: ");
             text_var.append(std::to_string(fps));
             text_var.append("\nUPS: ");
             text_var.append(std::to_string(updatePerSecond));
+            text_var.append("\nPersonnes: ");
+            text_var.append(std::to_string(application.MAP->_TableauPersonnes.size() * application.MAP->_TableauPersonnes.front().size()));
 
-            application.text->free_texture();
             application.text->Init(text_var);
 
             fps = 0;
@@ -122,23 +135,26 @@ int main(int argc, char *argv[])
             timer += 1000;
         }
 
-        if(application.getTouche(SDL_SCANCODE_ESCAPE)) // Si la touche esc est préssée on sort de la boucle et le programme s'arrête
-            break;
-
         elapsed_time = SDL_GetTicks() - before; // Temps écoulé depuis le dernier passage de la boucle
         if(elapsed_time >= ms)
         {
             /*========= Updates =========*/
+            informations.clear();
+            informations.append("Jours: ");
+            informations.append(std::to_string(application.MAP->_daysPassed));
+            informations.append("\n \n \nSains: ");
+            informations.append(std::to_string(application.MAP->_healthyNumber));
+            informations.append("\nMalades: ");
+            informations.append(std::to_string(application.MAP->_sicksNumber));
+            informations.append("\nImmunisés: ");
+            informations.append(std::to_string(application.MAP->_vaccinatedNumber));
+            informations.append("\nMorts: ");
+            informations.append(std::to_string(application.MAP->_deadNumber));
+            application.infos->Init(informations);
+
             application.updates();
             updatePerSecond++;
             before += ms;
-
-            days_var.clear();
-            days_var.append("Jour: ");
-            days_var.append(std::to_string(application._daysPassed));
-
-            application.days->free_texture();
-            application.days->Init(days_var);
         }
         else
         {
@@ -156,7 +172,6 @@ int main(int argc, char *argv[])
             SDL_GL_SwapWindow(screen); // Mise à jour de l'écran pour rendre dans la fenêtre tout ce qui à été fait
         }
     }
-
     SDL_DestroyWindow(screen);
     SDL_GL_DeleteContext(context);
     SDL_Quit();

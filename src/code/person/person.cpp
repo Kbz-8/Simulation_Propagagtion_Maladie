@@ -4,10 +4,10 @@ Person::Person(double vaccinated_chance, double mortality)
 {
     _type = HEALTHY;
 
-    if(Math::rand_probability(vaccinated_chance))
+    if(gut::math::rand_probability(vaccinated_chance))
 		_type = VACCINATED;
 
-	_resistant = Math::rand_probability(1 - mortality);
+	_resistant = gut::math::rand_probability(1 - mortality);
 	_firstDaySick = false;
 	_daysSick = 0;
 }

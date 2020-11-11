@@ -7,7 +7,7 @@
 //
 // AUTHOR: DAVID Malo
 // CREATED: 31/10/2020
-// UPDATED: 31/10/2020
+// UPDATED: 07/11/2020
 /*=============================================================*/
 
 #ifndef MATH_HPP
@@ -17,12 +17,14 @@
 
 #include <iostream>
 
-class Math
+namespace gut
 {
-    public:
-        static int randint(int a, int b);  // gives a random integer
-        static bool rand_probability(double proba);
-};
+    namespace math
+    {
+        int randint(int a, int b);  // gives a random integer
+        bool rand_probability(double proba);
+    }
+}
 
 #endif // __cplusplus
 

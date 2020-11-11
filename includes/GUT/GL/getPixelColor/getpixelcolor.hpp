@@ -8,7 +8,7 @@
 //
 // AUTHOR: DAVID Malo
 // CREATED: 11/09/2020
-// UPDATED: 12/09/2020
+// UPDATED: 07/11/2020
 /*=============================================================*/
 
 #ifndef __GETPIXELCOLOR_HPP__
@@ -26,7 +26,13 @@ struct Color
     GLubyte B;
 };
 
-Color getPixelColor(GLint x, GLint y);
+namespace gut
+{
+namespace gl
+{
+    Color getPixelColor(GLint x, GLint y);
+}
+}
 
 #endif // __cplusplus
 #endif // __GETPIXELCOLOR_HPP__

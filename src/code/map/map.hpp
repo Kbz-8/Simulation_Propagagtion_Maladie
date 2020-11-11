@@ -15,13 +15,9 @@ class Map
 
         void clearTabular(); // Fonction pour nettoyer le tableau principal
 
-        Person getPerson(int x, int y); // Fonction pour récupérer les caractéristiques d'une personne
-        void setPerson(int x, int y, enum TYPE SET);  // Fonction pour modifier manuellement la caractéristiques d'une personne
+        void renderPopulation(bool pause); // Fonction pour afficher la population à l'écran
 
-        void renderPopulation(); // Fonction pour afficher la population à l'écran
-        void updateMap();
-
-        ~Map(); // Destructeur de la classe
+        virtual ~Map(); // Destructeur de la classe
 
         std::vector<std::vector<Person>> _TableauPersonnes; // Tableau principal où sont stockés les gens
 
@@ -34,6 +30,11 @@ class Map
 
         int _daysPassed;
         int _sicksNumber;
+        int _vaccinatedNumber;
+        int _deadNumber;
+        int _healthyNumber;
+
+        GLuint _vboID; // VBO
 
     private:
         int _width;
@@ -44,15 +45,16 @@ class Map
 
         void renderPerson(int x, int y); // Fonction pour rendre une personne seule
 
+        void updateMap();
+
         void updateSick(int x, int y);
         void updateNewSick();
         void updateHealthy(int x, int y);
 
-        bool security(int x, int y);
+        Person getPerson(int x, int y); // Fonction pour récupérer les caractéristiques d'une personne
+        void setPerson(int x, int y, enum TYPE SET);  // Fonction pour modifier manuellement la caractéristiques d'une personne
 
         std::vector<float> _vertices; // Tableau contenant les coordonnées des sommets d'un carré pour le VBO
-
-        GLuint _vboID; // VBO
 };
 
 #endif // MAP_HPP
