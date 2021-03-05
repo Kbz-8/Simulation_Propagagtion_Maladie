@@ -1,18 +1,15 @@
- #version 130
-
-out vec4 fragColor;
+#version 120
 
 uniform sampler2D tex;
 uniform bool isTexture;
 
-in vec4 fragPos;
-in vec2 texCoords;
-in vec4 Color;
+varying vec2 texCoords;
+varying vec4 Color;
 
 void main(void)
 {
 	if(isTexture)
-  		fragColor = texture(tex, texCoords) * Color;
+  		gl_FragColor = texture2D(tex, texCoords) * Color;
   	else
-  		fragColor = Color;
+  		gl_FragColor = Color;
 }

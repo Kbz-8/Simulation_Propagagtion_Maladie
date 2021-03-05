@@ -7,7 +7,7 @@
 //
 // Class for Logs
 //
-// AUTHOR: DAVID Malo
+// AUTHOR: Malo DAVID
 // CREATED: 04/09/2020
 // UPDATED: 07/11/2020
 /*=============================================================*/
@@ -16,6 +16,12 @@
 
 #ifdef __cplusplus
 
+void TERMINATE()
+{
+    std::cout << "EXIT FAILURE: emergency abortion program" << std::endl;
+    abort();
+}
+
 namespace gut
 {
 
@@ -23,12 +29,13 @@ namespace gut
 
     void Log::report(enum LogType type, std::string message, std::string path)
     {
-        if(type != DONT_SAVE)
+        std::ofstream test(getTime(type, path).c_str());
+        if(test)
+            test << message;
+        if(type == FATAL_ERROR)
         {
-            std::ofstream test(getTime(type, path).c_str());
-
-            if(test)
-                test << message;
+            std::set_terminate(TERMINATE);
+            std::terminate();
         }
     }
 

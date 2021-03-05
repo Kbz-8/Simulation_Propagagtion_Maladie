@@ -5,7 +5,7 @@
 //
 // messagebox.cpp
 //
-// AUTHOR: DAVID Malo
+// AUTHOR: Malo DAVID
 // CREATED: 08/11/2020
 // UPDATED: 08/11/2020
 /*=============================================================*/
@@ -22,8 +22,6 @@ namespace sdl
 
     void MessageBox::reportMessage(enum LogType type, std::string message, std::string logReport)
     {
-        gut::Log::report(type, logReport, "Log_Report");
-
         SDL_MessageBoxButtonData buttons[] = {
             {NULL, 0, "Plus de détails"},
             {SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 1, "ok"}
@@ -48,7 +46,6 @@ namespace sdl
 
         switch(type)
         {
-            case DONT_SAVE:
             case MESSAGE: flag = SDL_MESSAGEBOX_INFORMATION; title = "Message"; break;
             case WARNING: flag = SDL_MESSAGEBOX_WARNING; title = "Warning"; break;
             case ERROR:   flag = SDL_MESSAGEBOX_ERROR; title = "Error"; break;
@@ -71,7 +68,9 @@ namespace sdl
 
         SDL_ShowMessageBox(&messageboxdata, &buttonid);
 
-        if(buttonid == 0)
+        if(buttonid == 1)
+            Log::report(type, logReport, "Log_Report");
+        else
         {
             message.append(":\n");
             message.append(logReport);
@@ -91,6 +90,8 @@ namespace sdl
             };
 
             SDL_ShowMessageBox(&messageboxdata, &buttonid);
+            if(buttonid == 1)
+                Log::report(type, logReport, "Log_Report");
         }
     }
 

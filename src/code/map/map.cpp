@@ -1,5 +1,7 @@
 #include "map.hpp"
 
+extern GameTexts *texts;
+
 Map::Map(int width, int height)
 {
     _width = width;
@@ -88,6 +90,7 @@ void Map::LoadVBO()
      *   Seuls les VBOs, VAOs, et VBOs/IBOs ne passent pas par la RAM avant d'atteindre la carte graphique.
      *
      *   Pour ma simulation, j'utilise des VBOs car ils sont simples d'utilisation et que je n'ai pas besoin de plus.
+     *
      */
 
     if(glIsBuffer(_vboID) == GL_TRUE) glDeleteBuffers(1, &_vboID); // Destruction d'un éventuel ancien VBO
@@ -98,7 +101,7 @@ void Map::LoadVBO()
     glBindBuffer(GL_ARRAY_BUFFER, 0); // Déverrouillage du VBO
 
     if(glIsBuffer(_vboID) != GL_TRUE)   // Si le VBO ne s'est pas généré on envoi un message d'erreur
-        gut::sdl::MessageBox::reportMessage(ERROR, "Erreur lors de la création d'un VBO", std::string(reinterpret_cast<GUTtext>(glewGetErrorString(glIsBuffer(_vboID)))));
+        gut::sdl::MessageBox::reportMessage(ERROR, texts->getText("VBOcreation"), std::string(reinterpret_cast<GUTtext>(glewGetErrorString(glIsBuffer(_vboID)))));
 }
 
 void Map::updateColor(int x, int y)

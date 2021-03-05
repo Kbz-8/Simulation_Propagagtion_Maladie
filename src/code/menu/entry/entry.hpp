@@ -13,7 +13,7 @@ enum EntryTYPE
     INTEGER
 };
 
-class Entry : public gut::gl::Text
+class Entry : public gut::gl2::Text
 {
     public:
         Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, GUTtext path, GUTuint sizeFont = 30);

@@ -1,5 +1,7 @@
 #include "application.hpp"
 
+extern GameTexts *texts;
+
 Application::Application(int width, int height)
 {
     _width = width;
@@ -9,16 +11,16 @@ Application::Application(int width, int height)
 
     menu = new Menu(width, height);
     MAP = new Map(width, height);
-    MAIN = new gut::gl::Shader("src/shaders/main.vert", "src/shaders/main.frag");
+    MAIN = new gut::gl2::Shader("src/shaders/main.vert", "src/shaders/main.frag");
 
-    text = new gut::gl::Text("includes/GUT/GL/text/font/font_1.ttf", 15, WHITE); // Initialisation des textes
+    text = new gut::gl2::Text("includes/GUT/GL_old/text/font/font_1.ttf", 15, WHITE); // Initialisation des textes
     text->Init(" "); // Au début il n'affiche rien tant qu'on a pas les informations à lui transmettre
-    infos = new gut::gl::Text("includes/GUT/GL/text/font/font_1.ttf", 15, WHITE);
+    infos = new gut::gl2::Text("includes/GUT/GL_old/text/font/font_1.ttf", 15, WHITE);
     infos->Init("0");
-    STATIC = new gut::gl::Text("includes/GUT/GL/text/font/font_1.ttf", 15, WHITE);
-    STATIC->Init("Retour au menu: esc/echap\nPause: espace\n \nRègles:\n           Vert = sain\n           Rouge = malade\n           Bleu = immunisé\n           Noir = mort");
+    STATIC = new gut::gl2::Text("includes/GUT/GL_old/text/font/font_1.ttf", 15, WHITE);
+    STATIC->Init(texts->getText("Statics"));
 
-    std::cout << "Simulation initialisée" << std::endl << std::endl;
+    std::cout << "Simulation initialisee" << std::endl << std::endl;
 }
 
 void Application::updates()
@@ -57,9 +59,9 @@ void Application::render()
         menu->renderMenu(*MAIN);
         return;
     }
-    text->render((int)((_width/5) * 4 + 20),  -10);
-    infos->render((int)((_width/5) * 4 + 20),  90);
-    STATIC->render((int)((_width/5) * 4 + 20),  240);
+    text->render((int)((_width/5) * 4 + 20), -10);
+    infos->render((int)((_width/5) * 4 + 20), 90);
+    STATIC->render((int)((_width/5) * 4 + 20), 240);
 
     MAIN->setBool("isTexture", false); // On lui dit qu'il n'y a que des couleurs à rendre ici
     MAP->renderPopulation(_pause);
@@ -78,5 +80,5 @@ Application::~Application()
 
     TTF_Quit();
 
-    std::cout << std::endl << "Simulation libérée" << std::endl << std::endl;
+    std::cout << std::endl << "Simulation liberee" << std::endl << std::endl;
 }

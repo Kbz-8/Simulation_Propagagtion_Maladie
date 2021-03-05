@@ -1,0 +1,52 @@
+/* ================================================================ //
+//
+// French Language
+// 
+// AUTHOR: Malo DAVID <bilbo.sacquet@orange.fr>
+// CREATED: 20/12/2020
+// UPDATED: 20/12/2020
+//
+// ================================================================ */
+
+/*[ERRORS]*/
+
+InitSDL == Unable to initialise the SDL;
+InitTTF == Unable to initialise the TTF;
+
+DisplayBounds == Unable to get the display bounds;
+CreateWindow == Unable to create the window;
+
+OpenGLContext == Unable to create the OpenGL context;
+InitGLEW == Unable to initialise GLEW;
+
+VBOcreation == Unable to create a VBO;
+
+
+
+/*[MENU]*/
+
+Title == SIMULATION;
+SickNumberEntry == Number of sicks people;
+VaccinatedEntry == Immunity/Vaccination;
+MortalityEntry == Mortality;
+ContagiousnessEntry == Contagiousness;
+TimeDeathEntry == Time before death;
+TimeCureEntry == Time before cure;
+
+GoButton == Go;
+ResetButton == Reset;
+QuitButton == Quit;
+
+
+
+/*[TEXTS]*/
+
+Statics == Back to menu: esc/echap\nPause: spacebar\n \n Rules: \n           Green = healthy\n           Red = sicks\n           Blue = vaccinated\n           Black = dead;
+
+People == \nPeople: ;
+
+Days == Days: ;
+Healthy == \n \n \nHealthy: ;
+Sicks == \nSicks: ;
+Vaccinated == \nimmune: ;
+Deads == \nDeads: ;

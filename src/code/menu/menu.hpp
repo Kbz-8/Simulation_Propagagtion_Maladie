@@ -7,6 +7,7 @@
 #include "../../../includes/GUT/GUT.hpp"
 #include "entry/entry.hpp"
 #include "../map/map.hpp"
+#include "../texts/texts.hpp"
 
 class Menu: public gut::sdl::Input
 {
@@ -14,7 +15,7 @@ class Menu: public gut::sdl::Input
         Menu(int width, int height);
 
         void updateMenu(Map &MAP);
-        void renderMenu(gut::gl::Shader &main);
+        void renderMenu(gut::gl2::Shader &main);
 
         virtual ~Menu();
 
@@ -22,17 +23,17 @@ class Menu: public gut::sdl::Input
         bool _end = false;
 
     private:
-        gut::gl::Text* _title;
-        gut::gl::Button* _enter;
-        gut::gl::Button* _reset;
-        gut::gl::Button* _quit;
+        gut::gl2::Text* _title;
+        gut::gl2::Button* _enter;
+        gut::gl2::Button* _reset;
+        gut::gl2::Button* _quit;
 
-        gut::gl::Text* _sickNumberText;
-        gut::gl::Text* _vaccinated_chanceText;
-        gut::gl::Text* _mortalityText;
-        gut::gl::Text* _contagiousness_chanceText;
-        gut::gl::Text* _time_before_deathText;
-        gut::gl::Text* _time_before_cureText;
+        gut::gl2::Text* _sickNumberText;
+        gut::gl2::Text* _vaccinated_chanceText;
+        gut::gl2::Text* _mortalityText;
+        gut::gl2::Text* _contagiousness_chanceText;
+        gut::gl2::Text* _time_before_deathText;
+        gut::gl2::Text* _time_before_cureText;
 
         Entry* _sickNumberEntry;
         Entry* _vaccinated_chanceEntry;

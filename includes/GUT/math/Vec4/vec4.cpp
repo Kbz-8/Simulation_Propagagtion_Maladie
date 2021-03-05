@@ -7,7 +7,7 @@
 //
 // Class for 4D vectors
 //
-// AUTHOR: DAVID Malo
+// AUTHOR: Malo DAVID
 // CREATED: 09/10/2020
 // UPDATED: 07/11/2020
 /*=============================================================*/

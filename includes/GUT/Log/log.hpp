@@ -7,7 +7,7 @@
 //
 // Class for Logs
 //
-// AUTHOR: DAVID Malo
+// AUTHOR: Malo DAVID
 // CREATED: 04/09/2020
 // UPDATED: 07/11/2020
 /*=============================================================*/
@@ -21,19 +21,18 @@
 #include <fstream>
 #include <ctime>
 #include <string>
+#include <cstdlib>
 
 enum LogType
 {
     MESSAGE,
     WARNING,
     ERROR,
-    FATAL_ERROR,
-    DONT_SAVE
+    FATAL_ERROR
 };
 
 namespace gut
 {
-
     class Log
     {
         public:
@@ -46,7 +45,6 @@ namespace gut
         private:
             static std::string getTime(enum LogType type, std::string path);
     };
-
 }
 
 

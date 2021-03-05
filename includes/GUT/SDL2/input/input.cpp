@@ -5,7 +5,7 @@
 //
 // input.cpp
 //
-// AUTHOR: DAVID Malo
+// AUTHOR: Malo DAVID
 // CREATED: 04/11/2020
 // UPDATED: 07/11/2020
 /*=============================================================*/
@@ -22,7 +22,7 @@ namespace sdl
 {
     Input::Input()
     {
-        std::cout << "Commandes initialisées" << std::endl;
+        std::cout << "Commandes initialisees" << std::endl;
 
         _x = 0;
         _y = 0;
@@ -91,7 +91,6 @@ namespace sdl
                     }
                 break;
 
-
                 default: break;
             }
 
@@ -102,6 +101,8 @@ namespace sdl
 
                     _xRel = evenements.motion.xrel;
                     _yRel = evenements.motion.yrel;
+
+                    winMouseMotion = evenements.motion.windowID;
             }
         }
     }
@@ -150,6 +151,11 @@ namespace sdl
         return _yRel; // Renvoie du mouvement vertical de la souris
     }
 
+    Uint32 Input::getWindowMouseMotion()
+    {
+        return winMouseMotion;
+    }
+
     std::string Input::getTextEntry()
     {
         return _text_input_string;
@@ -160,10 +166,15 @@ namespace sdl
         return fini;
     }
 
+    void Input::end()
+    {
+        fini = true;
+    }
+
 
     Input::~Input()
     {
-        std::cout << "Commandes liberées" << std::endl;
+        std::cout << "Commandes liberees" << std::endl;
     }
 }
 }

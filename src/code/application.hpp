@@ -17,12 +17,12 @@ class Application
 
         ~Application(); // Destructeur de la classe
 
-        gut::gl::Text *text; // Textes
-        gut::gl::Text *infos; // Texte informatif
-        gut::gl::Text *STATIC; // Texte static
+        gut::gl2::Text *text; // Textes
+        gut::gl2::Text *infos; // Texte informatif
+        gut::gl2::Text *STATIC; // Texte static
 
         Menu* menu;
-        gut::gl::Shader* MAIN;
+        gut::gl2::Shader* MAIN;
         Map* MAP;
 
     private:

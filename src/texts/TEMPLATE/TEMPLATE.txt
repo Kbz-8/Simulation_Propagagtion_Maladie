@@ -1,0 +1,69 @@
+/* ================================================================ //
+//
+// Template for languages files
+// 
+// AUTHOR: Malo DAVID <bilbo.sacquet@orange.fr>
+// CREATED: 12/12/2020
+// UPDATED: 14/12/2020
+//
+// ================================================================ */
+
+/* ================================================================================================================ */
+/* =====                                        ==== WORKING ====                                             ===== */
+/* ================================================================================================================ */
+
+/*ID == Text;*/
+/*Put ";" at the end of your texts because the program will search it*/
+/*Don't forget to write "ID == Text;" instead of "ID==Text;", "ID== Text;" or "ID ==Text;"*/
+
+
+/*Don't forget to fill the "languages.txt" file with the name of your language and the path of it from the program directory*/
+
+/*To comment, use "/**/", "//" won't works*/
+
+/*DON'T FORGET TO WRITE "\n \n" AND NOT "\n\n" !!!*/
+
+/* ================================================================================================================ */
+
+/*[ERRORS]*/
+
+InitSDL == /*Error message in case the SDL2 can't init*/;
+InitTTF == /*Error message in case the TTF can't init*/;
+
+DisplayBounds == /*Error message in case the program can't get the usable display bounds*/;
+CreateWindow == /*Error message in case the program can't create the window*/;
+
+OpenGLContext == /*Error message in case the program can't init the OpenGL context*/;
+InitGLEW == /*Error message in case GLEW can't init*/;
+
+VBOcreation == /*Error message in case a VBO can't be created*/;
+
+
+
+/*[MENU]*/
+
+Title == /*TITLE*/;
+SickNumberEntry == /*Number of sicks*/;
+VaccinatedEntry == /*Number of vaccinated people*/;
+MortalityEntry == /*Percentage of mortality*/;
+ContagiousnessEntry == /*Percentage of contagiousness*/;
+TimeDeathEntry == /*Days before death*/;
+TimeCureEntry == /*Days before cure*/;
+
+GoButton == /*GO*/;
+ResetButton == /*RESET*/;
+QuitButton == /*QUIT*/;
+
+
+
+/*[TEXTS]*/
+
+Statics == /*Back to menu: esc/echap\nPause: spacebar\n \n Rules: \n           Green = healthy\n           Red = sicks\n           Blue = vaccinated\n           Black = dead*/;
+
+People == \n/*PEOPLE*/: ;
+
+Days == /*DAYS*/: ;
+Healthy == \n \n \n/*HEALTHY*/: ;
+Sicks == \n/*SICKS*/: ;
+Vaccinated == \n/*VACCINATED*/: ;
+Deads == \n/*DEADS*/: ;

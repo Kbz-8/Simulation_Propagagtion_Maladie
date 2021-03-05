@@ -1,6 +1,6 @@
 #include "entry.hpp"
 
-Entry::Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, GUTtext path, GUTuint sizeFont): gut::gl::Text(path, sizeFont, WHITE)
+Entry::Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, GUTtext path, GUTuint sizeFont): gut::gl2::Text(path, sizeFont, WHITE)
 {
     _pos_x = pos_x;
     _pos_y = pos_y;
@@ -20,7 +20,7 @@ Entry::Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, G
     Init(_text);
 }
 
-Entry::Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, TTF_Font *font): gut::gl::Text(font, WHITE)
+Entry::Entry(enum EntryTYPE type, int pos_x, int pos_y, int width, int height, TTF_Font *font): gut::gl2::Text(font, WHITE)
 {
     _pos_x = pos_x;
     _pos_y = pos_y;

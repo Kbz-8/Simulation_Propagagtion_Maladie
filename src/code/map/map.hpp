@@ -5,6 +5,7 @@
 #include <vector>
 #include "../../../includes/GUT/GUT.hpp"
 #include "../person/person.hpp"
+#include "../texts/texts.hpp"
 
 class Map
 {

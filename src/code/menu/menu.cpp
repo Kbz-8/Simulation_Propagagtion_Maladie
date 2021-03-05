@@ -1,35 +1,37 @@
 #include "menu.hpp"
 
+extern GameTexts *texts;
+
 Menu::Menu(int width, int height): gut::sdl::Input()
 {
     _width = width;
     _height = height;
 
     if(TTF_Init() == -1) // Initialisation de SDL_TTF pour les textes
-        gut::sdl::MessageBox::reportMessage(ERROR, "Problème lors de l'initialisation de la librairie textuelle", SDL_GetError());
+        gut::sdl::MessageBox::reportMessage(FATAL_ERROR, texts->getText("InitTTF"), SDL_GetError());
 
-    font = TTF_OpenFont("includes/GUT/GL/text/font/font_1.ttf", height/36);
+    font = TTF_OpenFont("includes/GUT/GL_old/text/font/font_1.ttf", height/36);
 
-    _title = new gut::gl::Text(font, WHITE);
-    _title->Init("SIMULATION");
+    _title = new gut::gl2::Text(font, WHITE);
+    _title->Init(texts->getText("Title"));
 
-    _sickNumberText = new gut::gl::Text(font, WHITE);
-    _vaccinated_chanceText = new gut::gl::Text(font, WHITE);
-    _mortalityText = new gut::gl::Text(font, WHITE);
-    _contagiousness_chanceText = new gut::gl::Text(font, WHITE);
-    _time_before_deathText = new gut::gl::Text(font, WHITE);
-    _time_before_cureText = new gut::gl::Text(font, WHITE);
+    _sickNumberText = new gut::gl2::Text(font, WHITE);
+    _vaccinated_chanceText = new gut::gl2::Text(font, WHITE);
+    _mortalityText = new gut::gl2::Text(font, WHITE);
+    _contagiousness_chanceText = new gut::gl2::Text(font, WHITE);
+    _time_before_deathText = new gut::gl2::Text(font, WHITE);
+    _time_before_cureText = new gut::gl2::Text(font, WHITE);
 
-    _sickNumberText->Init("Nombre de malades");
-    _vaccinated_chanceText->Init("Immunité/Vaccination");
-    _mortalityText->Init("Mortalité");
-    _contagiousness_chanceText->Init("Contagiosité");
-    _time_before_deathText->Init("Temps avant la mort");
-    _time_before_cureText->Init("Temps avant la guerison");
+    _sickNumberText->Init(texts->getText("SickNumberEntry"));
+    _vaccinated_chanceText->Init(texts->getText("VaccinatedEntry"));
+    _mortalityText->Init(texts->getText("MortalityEntry"));
+    _contagiousness_chanceText->Init(texts->getText("ContagiousnessEntry"));
+    _time_before_deathText->Init(texts->getText("TimeDeathEntry"));
+    _time_before_cureText->Init(texts->getText("TimeCureEntry"));
 
-    _reset = new gut::gl::Button((width*80)/100, ((height*75)/100) - 50 - 6, 200, 50, "Réinitialiser", font);
-    _enter = new gut::gl::Button((width*80)/100, (height*75)/100, 200, 50, "Go", font);
-    _quit = new gut::gl::Button((width*80)/100, ((height*75)/100) + 50 + 5, 200, 50, "Quitter", font);
+    _reset = new gut::gl2::Button((width*80)/100, (height*75)/100, 200, 50, texts->getText("ResetButton").c_str(), font);
+    _enter = new gut::gl2::Button((width*80)/100, ((height*75)/100) - 50 - 6, 200, 50, texts->getText("GoButton").c_str(), font);
+    _quit = new gut::gl2::Button((width*80)/100, ((height*75)/100) + 50 + 5, 200, 50, texts->getText("QuitButton").c_str(), font);
 
     _sickNumberEntry =            new Entry(INTEGER, (width*20)/100, (height*10)/100, 300, 50, font);
     _vaccinated_chanceEntry =     new Entry(PERCENT, (width*20)/100, (height*20)/100, 300, 50, font);
@@ -72,7 +74,7 @@ void Menu::updateMenu(Map &MAP)
 }
 
 
-void Menu::renderMenu(gut::gl::Shader &main)
+void Menu::renderMenu(gut::gl2::Shader &main)
 {
     main.setBool("isTexture", false);
     _enter->renderButton();

@@ -5,7 +5,7 @@
 //
 // input.hpp
 //
-// AUTHOR: DAVID Malo
+// AUTHOR: Malo DAVID
 // CREATED: 04/11/2020
 // UPDATED: 07/11/2020
 /*=============================================================*/
@@ -47,12 +47,15 @@ namespace sdl
             int getXRel() const; // Fonction pour récupérer le mouvement horizontal de la souris
             int getYRel() const; // Fonction pour récupérer le mouvement vertical de la souris
 
+            Uint32 getWindowMouseMotion();
+
             void activateTextInput(bool activate);
 
             std::string getTextEntry();
             bool _isTyping = false;
 
             bool fin() const; // Fonction pour savoir si la croix de fermeture de la fenêtre est cliquée
+            void end();
 
 
         private:
@@ -61,6 +64,8 @@ namespace sdl
             bool _boutonsSourisDOWN[8]; // Tableau où sont stockés les informations sur les touches relachées
             bool _touchesUP[SDL_NUM_SCANCODES]; // Tableau où sont stockés les informations sur les boutons de la souris enfoncés
             bool _boutonsSourisUP[8]; // Tableau où sont stockés les informations sur les boutons de la souris relachés
+
+            Uint32 winMouseMotion = 0;
 
             std::string _text_input_string = " ";
 

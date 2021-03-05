@@ -7,7 +7,7 @@
 //
 // Class for 3D vectors
 //
-// AUTHOR: DAVID Malo
+// AUTHOR: Malo DAVID
 // CREATED: 11/09/2020
 // UPDATED: 07/11/2020
 /*=============================================================*/
@@ -130,6 +130,15 @@ namespace math
         X -= valeur;
         Y -= valeur;
         Z -= valeur;
+
+        return *this;
+    }
+
+    Vec3 Vec3::operator- ()
+    {
+        X = -X;
+        Y = -Y;
+        Z = -Z;
 
         return *this;
     }
@@ -338,6 +347,15 @@ namespace math
     double Vec3::dot(Vec3 v)
     {
         return X * v.X + Y * v.Y + Z * v.Z;
+    }
+
+    Vec3 Vec3::absolute()
+    {
+        X = abs(X);
+        Y = abs(Y);
+        Z = abs(Z);
+
+        return *this;
     }
 }
 }
